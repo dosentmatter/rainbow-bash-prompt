@@ -38,9 +38,9 @@ TERM_RED=$(tput setaf 1)
 TERM_GREEN=$(tput setaf 2)
 TERM_BLUE=$(tput setaf 4)
 
-ESC=$(echo -e '\033')
-SOH=$(echo -e '\001')
-STX=$(echo -e '\002')
+ESC=$'\033'
+SOH=$'\001'
+STX=$'\002'
 
 PS1_DEFAULT_LITERAL=$SOH$TERM_DEFAULT$STX
 PS1_RED_LITERAL=$SOH$TERM_RED$STX
