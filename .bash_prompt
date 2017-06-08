@@ -135,7 +135,7 @@ __ps1_debug__() {
   cat -v | __ps1_colorize_debug__
 }
 __ps1_debug_sed__() {
-  sed 's/'$ESC'/[ESC]/g' | sed 's/'$SOH'/[SOH]/g' | sed 's/'$STX'/[STX]/g'
+  sed -e 's/'$ESC'/[ESC]/g' -e 's/'$SOH'/[SOH]/g' -e 's/'$STX'/[STX]/g'
 }
 # wrap PS1 for debugging
 PS1_DEBUG_ENABLED='$(eval "$PS1_DEBUG_COMMAND" <<<"'$PS1'")'
