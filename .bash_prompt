@@ -14,19 +14,19 @@ __prompt_command__() {
   # Save last exit code
   PS1_exit=$?
 
-  if [ "$PS1_DEBUG" = 'true' ]; then
-    if [ "$PS1" = "$PS1_DEBUG_DISABLED" ]; then
+  if [[ "$PS1_DEBUG" = 'true' ]]; then
+    if [[ "$PS1" = "$PS1_DEBUG_DISABLED" ]]; then
       PS1=$PS1_DEBUG_ENABLED
     fi
   else
-    if [ "$PS1" = "$PS1_DEBUG_ENABLED" ]; then
+    if [[ "$PS1" = "$PS1_DEBUG_ENABLED" ]]; then
       PS1=$PS1_DEBUG_DISABLED
     fi
   fi
 }
 
 ps1_set_debug_mode() {
-  if [ "$PS1_DEBUG" = 'true' ]; then
+  if [[ "$PS1_DEBUG" = 'true' ]]; then
     PS1=$PS1_DEBUG_ENABLED
   else
     PS1=$PS1_DEBUG_DISABLED
@@ -74,11 +74,11 @@ PS1+='$(eval "$PS1_COLORIZE_COMMAND" <<<"'$PS1_HISTORY_NUMBER'")'
 PS1+=$PS1_SPACING
 
 PS1+='['
-PS1+="\$("\
-"if [ \$PS1_exit -eq 0 ]; "\
+PS1+='$('\
+'if ((PS1_exit == 0)); '\
 "then echo '$PS1_GREEN_LITERAL'; "\
 "else echo '$PS1_RED_LITERAL'; fi"\
-")"
+')'
 PS1+='$PS1_exit'
 PS1+=$PS1_DEFAULT_ESCAPED
 PS1+=']'
