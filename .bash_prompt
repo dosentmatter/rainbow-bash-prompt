@@ -6,6 +6,7 @@
 # must use PS1 escapes or else line wrap issue.
 PROMPT_COMMAND="__prompt_command__${PROMPT_COMMAND:+"; $PROMPT_COMMAND"}"
 PS1_COLORIZE_COMMAND='__ps1_lolcat__'
+# shellcheck disable=SC2034
 PS1_DEBUG_COMMAND='__ps1_debug__'
 
 PS1_DEBUG='false'
@@ -65,7 +66,7 @@ PS1_DEFAULT_ESCAPED='\['$TERM_DEFAULT'\]'
 # In $PS1_DEBUG_ENABLED, the interpret phase is still run by PS1. The echo
 # phase is emulated by wrapping $PS1 in double quotes: ...<<<"'PS1'"...
 unset PS1
-PS1_COLORLESS=$(sed 's/[[:space:]]*$//' <<<${PS1:-'\h:\W \u\$'})
+PS1_COLORLESS=$(sed 's/[[:space:]]*$//' <<<"${PS1:-\h:\W \u\\$}")
 PS1_SPACING=' '
 PS1=''
 
@@ -74,11 +75,12 @@ PS1+='$(eval "$PS1_COLORIZE_COMMAND" <<<"'$PS1_HISTORY_NUMBER'")'
 PS1+=$PS1_SPACING
 
 PS1+='['
-PS1+='$('\
-'if ((PS1_exit == 0)); '\
-"then echo '$PS1_GREEN_LITERAL'; "\
-"else echo '$PS1_RED_LITERAL'; fi"\
-')'
+PS1+='$('
+PS1+='if ((PS1_exit == 0)); then '
+PS1+="echo '$PS1_GREEN_LITERAL'; "
+PS1+='else '
+PS1+="echo '$PS1_RED_LITERAL'; fi"
+PS1+=')'
 PS1+='$PS1_exit'
 PS1+=$PS1_DEFAULT_ESCAPED
 PS1+=']'
@@ -138,4 +140,5 @@ __ps1_debug_sed__() {
   sed -e 's/'$ESC'/[ESC]/g' -e 's/'$SOH'/[SOH]/g' -e 's/'$STX'/[STX]/g'
 }
 # wrap PS1 for debugging
+# shellcheck disable=SC2016
 PS1_DEBUG_ENABLED='$(eval "$PS1_DEBUG_COMMAND" <<<"'$PS1'")'
