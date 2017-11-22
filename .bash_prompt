@@ -95,10 +95,10 @@ __ps1_color_wrap_non_printing__() {
   sed "s/$REGEX/$REPLACE/g"
 }
 __ps1_lolcat_ruby__() {
-  eval "$(rbenv which lolcat) -f -F 6 -p 25" | __ps1_color_wrap_non_printing__
+  rbenv exec lolcat -f -F 6 -p 25 | __ps1_color_wrap_non_printing__
 }
 __ps1_lolcat_python__() {
-  eval "$(pyenv which lolcat) -f -F 6 -p 25" | __ps1_remove_newline__ \
+  pyenv exec lolcat -f -F 6 -p 25 | __ps1_remove_newline__ \
     | __ps1_color_wrap_non_printing__
 }
 __ps1_lolcat__() {
