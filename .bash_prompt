@@ -4,14 +4,14 @@
 # lolcat reference: http://apple.stackexchange.com/a/266112/216733
 # If dynamic can use literal control characters. Otherwise,
 # must use PS1 escapes or else line wrap issue.
-PROMPT_COMMAND="__prompt_command__${PROMPT_COMMAND:+"; $PROMPT_COMMAND"}"
-PS1_COLORIZE_COMMAND='__ps1_lolcat__'
+PROMPT_COMMAND="__prompt_command${PROMPT_COMMAND:+"; $PROMPT_COMMAND"}"
+PS1_COLORIZE_COMMAND='__ps1_lolcat'
 # shellcheck disable=SC2034
-PS1_DEBUG_COMMAND='__ps1_debug__'
+PS1_DEBUG_COMMAND='__ps1_debug'
 
 PS1_DEBUG='false'
 
-__prompt_command__() {
+__prompt_command() {
   # Save last exit code
   PS1_exit=$?
 
@@ -86,23 +86,23 @@ PS1+=$PS1_DEFAULT_ESCAPED
 PS1+=']'
 PS1+=$PS1_SPACING
 
-__ps1_remove_newline__() {
+__ps1_remove_newline() {
   tr -d '\n'
 }
-__ps1_color_wrap_non_printing__() {
+__ps1_color_wrap_non_printing() {
   local REGEX=$ESC'\[[[:digit:];]*m'
   local REPLACE=$SOH'&'$STX
   sed "s/$REGEX/$REPLACE/g"
 }
-__ps1_lolcat_ruby__() {
-  rbenv exec lolcat -f -F 6 -p 25 | __ps1_color_wrap_non_printing__
+__ps1_lolcat_ruby() {
+  rbenv exec lolcat -f -F 6 -p 25 | __ps1_color_wrap_non_printing
 }
-__ps1_lolcat_python__() {
-  pyenv exec lolcat -f -F 6 -p 25 | __ps1_remove_newline__ \
-    | __ps1_color_wrap_non_printing__
+__ps1_lolcat_python() {
+  pyenv exec lolcat -f -F 6 -p 25 | __ps1_remove_newline \
+    | __ps1_color_wrap_non_printing
 }
-__ps1_lolcat__() {
-  lolcat-c -f -h 0.8 | __ps1_remove_newline__ | __ps1_color_wrap_non_printing__
+__ps1_lolcat() {
+  lolcat-c -f -h 0.8 | __ps1_remove_newline | __ps1_color_wrap_non_printing
 }
 PS1+='$(eval "$PS1_COLORIZE_COMMAND" <<<"'$PS1_COLORLESS'")'
 PS1+=$PS1_SPACING
@@ -120,7 +120,7 @@ PS1_DEBUG_DISABLED=$PS1
 #   \^A is is looked for but not consumed.
 # can use perl regex if want to colorize debug literal text.
 # sed also doesn't have non capturing groups so groups are offset.
-__ps1_colorize_debug__() {
+__ps1_colorize_debug() {
   local SOH_REGEX='(\^A)'
   local COLOR_CODE_REGEX='((\^\[\(B)?\^\[\[[[:digit:];]*m)'
   local STX_REGEX='(\^B)'
@@ -133,10 +133,10 @@ __ps1_colorize_debug__() {
 
   sed -E "s/$REGEX/$REPLACE/g"
 }
-__ps1_debug__() {
-  cat -v | __ps1_colorize_debug__
+__ps1_debug() {
+  cat -v | __ps1_colorize_debug
 }
-__ps1_debug_sed__() {
+__ps1_debug_sed() {
   sed -e 's/'$ESC'/[ESC]/g' -e 's/'$SOH'/[SOH]/g' -e 's/'$STX'/[STX]/g'
 }
 # wrap PS1 for debugging
