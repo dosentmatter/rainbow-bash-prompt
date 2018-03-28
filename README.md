@@ -24,10 +24,10 @@ fi
 
 - You can turn on and off debugging by setting `PS1_DEBUG` to `'true'` or `'false'`. Debugging is used to show the non-printing characters and highlight them. It has a line wrap issue as shown in the asciinema recording above that seems to be caused by colored prompts that are too long. This is not an issue because it is only meant for debugging.
 - You can change the command used to colorize `PS1` by setting `PS1_COLORIZE_COMMAND` to a name of a function.
-  - Currently, it is set to `'__ps1_lolcat__'` which uses `lolcat-c` for speed.
-  - If you have [rbenv](https://github.com/rbenv/rbenv) with ruby [busyloop/lolcat](https://github.com/busyloop/lolcat) or [pyenv](https://github.com/yyuu/pyenv) with python [tehmaze/lolcat](https://github.com/tehmaze/lolcat) installed, you can set `PS1_COLORIZE_COMMAND` to `'__ps1_lolcat_ruby__'` or `'__ps1_lolcat_python__'`
+  - Currently, it is set to `'__ps1_lolcat'` which uses `lolcat-c` for speed.
+  - If you have [rbenv](https://github.com/rbenv/rbenv) with ruby [busyloop/lolcat](https://github.com/busyloop/lolcat) or [pyenv](https://github.com/yyuu/pyenv) with python [tehmaze/lolcat](https://github.com/tehmaze/lolcat) installed, you can set `PS1_COLORIZE_COMMAND` to `'__ps1_lolcat_ruby'` or `'__ps1_lolcat_python'`
 - You can change the command used to format the debug output by setting `PS1_DEBUG_COMMAND` to a name of a function.
-  - Currently, it is set to `__ps1_debug__` which displays non-printing characters and colors them.
+  - Currently, it is set to `__ps1_debug` which displays non-printing characters and colors them.
   
 ## Caveats
 
