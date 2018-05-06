@@ -4,6 +4,8 @@
 
 [![demo](https://asciinema.org/a/b5hasvkj9mgoho5ntodffabn0.png)](https://asciinema.org/a/b5hasvkj9mgoho5ntodffabn0?autoplay=1)
 
+If you are looking for a rainbow prompt for zsh, check out [dosentmatter/rainbow-zsh-prompt](https://github.com/dosentmatter/rainbow-zsh-prompt)
+
 ## Installation
 
 *Tested on macOS Sierra (Terminal and iTerm2) and Ubuntu (GNOME Terminal)*
@@ -28,7 +30,7 @@ fi
   - If you have [rbenv](https://github.com/rbenv/rbenv) with ruby [busyloop/lolcat](https://github.com/busyloop/lolcat) or [pyenv](https://github.com/yyuu/pyenv) with python [tehmaze/lolcat](https://github.com/tehmaze/lolcat) installed, you can set `PS1_COLORIZE_COMMAND` to `'__ps1_lolcat_ruby'` or `'__ps1_lolcat_python'`
 - You can change the command used to format the debug output by setting `PS1_DEBUG_COMMAND` to a name of a function.
   - Currently, it is set to `__ps1_debug` which displays non-printing characters and colors them.
-  
+
 ## Caveats
 
 To have double quotes `"` and backslashes `\` work in both regular and debug mode, PS1 has to have `\\"` and `\\\\` respectively to have the right number of escapes for both modes.
