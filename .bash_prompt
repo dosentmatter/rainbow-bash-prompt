@@ -49,6 +49,8 @@ PS1_GREEN_LITERAL=$SOH$TERM_GREEN$STX
 PS1_BLUE_LITERAL=$SOH$TERM_BLUE$STX
 
 PS1_DEFAULT_ESCAPED='\['$TERM_DEFAULT'\]'
+PS1_RED_ESCAPED='\['$TERM_RED'\]'
+PS1_GREEN_ESCAPED='\['$TERM_GREEN'\]'
 
 # Caveat:
 # to have a literal '\' or '"' work in both $PS1_DEBUG_DISABLED and
@@ -74,12 +76,14 @@ PS1_HISTORY_NUMBER='\!)'
 PS1+='$(eval "$PS1_COLORIZE_COMMAND" <<<"'$PS1_HISTORY_NUMBER'")'
 PS1+=$PS1_SPACING
 
+# Rule is to use PS1_{COLOR}_ESCAPED if the escape sequence appears in PS1, but
+# use PS1_{COLOR}_LITERAL if it doesn't e.g. it's inside a function.
 PS1+='['
 PS1+='$('
 PS1+='if ((PS1_exit == 0)); then '
-PS1+="echo '$PS1_GREEN_LITERAL'; "
+PS1+="echo '$PS1_GREEN_ESCAPED'; "
 PS1+='else '
-PS1+="echo '$PS1_RED_LITERAL'; fi"
+PS1+="echo '$PS1_RED_ESCAPED'; fi"
 PS1+=')'
 PS1+='$PS1_exit'
 PS1+=$PS1_DEFAULT_ESCAPED
