@@ -90,6 +90,14 @@ PS1+=$PS1_DEFAULT_ESCAPED
 PS1+=']'
 PS1+=$PS1_SPACING
 
+PS1+='$(eval "$PS1_COLORIZE_COMMAND" <<<"'$PS1_COLORLESS'")'
+PS1+=$PS1_SPACING
+
+PS1_DEBUG_DISABLED=$PS1
+# wrap PS1 for debugging
+# shellcheck disable=SC2016
+PS1_DEBUG_ENABLED='$(eval "$PS1_DEBUG_COMMAND" <<<"'$PS1'")'
+
 __ps1_remove_newline() {
   tr -d '\n'
 }
@@ -108,10 +116,7 @@ __ps1_lolcat_python() {
 __ps1_lolcat() {
   lolcat-c -f -h 0.8 | __ps1_remove_newline | __ps1_color_wrap_non_printing
 }
-PS1+='$(eval "$PS1_COLORIZE_COMMAND" <<<"'$PS1_COLORLESS'")'
-PS1+=$PS1_SPACING
 
-PS1_DEBUG_DISABLED=$PS1
 # long colored prompt text that go over a line have a line wrap issue.
 # Problem occurs with literal and PS1 escaped control characters. Tried
 # escaping each individual character with perl at
@@ -143,6 +148,3 @@ __ps1_debug() {
 __ps1_debug_sed() {
   sed -e 's/'$ESC'/[ESC]/g' -e 's/'$SOH'/[SOH]/g' -e 's/'$STX'/[STX]/g'
 }
-# wrap PS1 for debugging
-# shellcheck disable=SC2016
-PS1_DEBUG_ENABLED='$(eval "$PS1_DEBUG_COMMAND" <<<"'$PS1'")'
